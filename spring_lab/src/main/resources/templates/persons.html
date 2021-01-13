@@ -9,13 +9,13 @@
 <body>
 <div class="header">
     <div class="header-link">
-        <a href="banks.html" >Фермеры</a>
+        <a href="banks.html" >Banks</a>
     </div>
     <div class="header-link current-link">
         <a href="persons.html">Persons</a>
     </div>
     <div class="header-link">
-        <a href="cars.html">cars</a>
+        <a href="cars.html">Cars</a>
     </div>
 </div>
 <div id="content">
@@ -34,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="animal in animalList">
+            <tr v-for="person in personList">
                 <td>{{person.id}}</td>
                 <td>{{person.name}}</td>
                 <td>{{person.first_name}}</td>
@@ -81,7 +81,7 @@
                 </select>
             </div>
             <div class="input-form">
-                <button style="margin: auto" @click="addPerson">add Person</button>
+                <button style="margin: auto" @click="addPerson">Add Person</button>
             </div>
         </div>
     </div>
@@ -113,7 +113,7 @@
                     return;
                 }
                 this.addApi
-                    .get({name: this.name, first_name: this.first_name, city: this.city, birthday: this.birthday, animalTypeId: this.selectedCar, farmerId: this.selectedBank})
+                    .get({name: this.name, first_name: this.first_name, city: this.city, birthday: this.birthday, carId: this.selectedCar, bankId: this.selectedBank})
                     .then(
                         response => {
                             if (response.status !== 200) {
