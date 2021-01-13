@@ -1,0 +1,145 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</head>
+<body>
+<div class="header">
+    <div class="header-link">
+        <a href="banks.html" >Banks</a>
+    </div>
+    <div class="header-link">
+        <a href="persons.html">Persons</a>
+    </div>
+    <div class="header-link current-link">
+        <a href="cars.html">Cars</a>
+    </div>
+</div>
+<div id="content">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <td class="id-column">car_id</td>
+                <td>car</td>
+                <td class="delete-button">Delete</td>
+            </tr>
+            </thead>farmers.html
+            <tbody>
+            <tr v-for="car in cars">
+                <td>{{car.car_id}}</td>
+                <td>{{car.brand}}</td>
+                <td>{{car.color}}</td>
+                <td class="delete-button">
+                    <img class="del-img" src="delete.png" width="16px" height="16px" @click="deleteCar(car)">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="creation">
+        <div class="creation-form">
+            <div class="input-form">
+                <label for="brand">brand</label>
+                <input id="brand" type="text" v-model="brand">
+            </div>
+            <div class="input-form">
+                <label for="color">color</label>
+                <input id="color" type="text" v-model="color">
+            </div>
+            <div class="input-form">
+                <button style="margin: auto" @click="addCar">Add Car</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var SERVER_ERROR_MESSAGE = "Server error";
+    var vue = new Vue({
+        el: "#content",
+        data:{
+            addApi: Vue.resource('../add/car'),
+            deleteApi: Vue.resource('../delete/car'),
+            carsApi: Vue.resource('../cars'),
+            cars: [],
+            brand: "",
+            color: ""
+        },
+        methods:{
+            addCar: function () {
+                if (this.brand === "" || this.color === ""){
+                    alert("Fill brand, color");
+                    return;
+                }
+                this.addApi
+                    .get({name: this.name, color: this.color})
+                    .then(
+                        response => {
+                            if (response.status !== 200) {
+                                alert(SERVER_ERROR_MESSAGE);
+                                return;
+                            }
+                            let serverResponse = response.body;
+                            if (serverResponse.success === true) {
+                                let car = serverResponse.message;
+                                this.cars.push(cars);
+                            }else{
+                                alert(serverResponse.message)
+                            }
+                        },
+                        errorResponse => {
+                            alert(SERVER_ERROR_MESSAGE);
+                        },
+                );
+            },
+            deleteCar: function (car) {
+                this.deleteApi
+                    .get({car_id: cars.car_id})
+                    .then(
+                        response => {
+                            if (response.status !== 200) {
+                                alert(SERVER_ERROR_MESSAGE);
+                                return;
+                            }
+                            let serverResponse = response.body;
+                            if (serverResponse.success === false) {
+                                alert(serverResponse.message)
+                            }else {
+                                let index = this.cars.indexOf(cars);
+                                this.cars.splice(index, 1);
+                            }
+                        },
+                        errorResponse => {
+                            alert(SERVER_ERROR_MESSAGE);
+                        },
+                    );
+            }
+
+        },
+        beforeMount: function () {
+            this.carsApi
+                .get()
+                .then(
+                    response => {
+                        console.log(response);
+                        if (response.status !== 200) {
+                            alert(SERVER_ERROR_MESSAGE);
+                            return;
+                        }
+                        this.cars = response.body;
+                    },
+                    errorResponse => {
+                        alert(SERVER_ERROR_MESSAGE);
+                    },
+                );
+        }
+    });
+
+
+</script>
+</body>
+</html>

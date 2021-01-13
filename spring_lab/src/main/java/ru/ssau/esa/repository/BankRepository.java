@@ -1,10 +1,8 @@
 package ru.ssau.esa.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 import ru.ssau.esa.entity.Bank;
 
-@Repository
-public interface BankRepository extends JpaRepository<Bank, String>{
+public interface BankRepository extends CrudRepository<Bank, String>{
 
 }

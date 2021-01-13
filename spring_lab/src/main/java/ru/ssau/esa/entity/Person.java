@@ -76,6 +76,7 @@ public class Person {
         this.bank = bank;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.ALL})
     @JoinColumn(name = "car_id")
     public Car getCar() {
         return car;

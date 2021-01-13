@@ -1,6 +1,8 @@
 package ru.ssau.esa.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +47,7 @@ public class Car {
     public void setColor(String color) {
         this.color = color;}
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = {CascadeType.ALL})
     public List<Person> getPersons() { return persons; }
 

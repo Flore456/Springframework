@@ -1,5 +1,7 @@
 package ru.ssau.esa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +35,7 @@ public class Bank {
         return account_year;
     }
 
-    public void setAccount_year(int acount_year) {
+    public void setAccount_year(int account_year) {
         this.account_year = account_year;
     }
 
@@ -55,7 +57,7 @@ public class Bank {
         this.manager_name = manager_name;
     }
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "bank", cascade = {CascadeType.ALL})
     public List<Person> getPersons() {
         return persons;
