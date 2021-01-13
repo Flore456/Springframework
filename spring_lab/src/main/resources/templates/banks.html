@@ -7,11 +7,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 </head>
 <body>
+<div class="header">
     <div class="header-link current-link">
         <a href="banks.html" >Banks</a>
     </div>
     <div class="header-link">
-        <a href="persons.html">Persons</a>
+        <a href="animals.html">Persons</a>
     </div>
     <div class="header-link">
         <a href="cars.html">Cars</a>
@@ -30,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="farmer in farmerList">
+            <tr v-for="bank in bankList">
                 <td>{{bank.account_num}}</td>
                 <td>{{bank.account_year}}</td>
                 <td>{{bank.number_card}}</td>
@@ -46,19 +47,19 @@
     <div class="creation">
         <div class="creation-form">
             <div class="input-form">
-                <label for="account_year">Account_year</label>
+                <label for="account_year">account_year</label>
                 <input id="account_year" type="text" v-model="account_year">
             </div>
             <div class="input-form">
-                <label for="number_card">Number_card</label>
+                <label for="number_card">number_card</label>
                 <input id="number_card" type="text" v-model="number_card">
             </div>
             <div class="input-form">
-                <label for="manager_name">Manager_name</label>
-                <input id="manager_name" type="manager_name" v-model="manager_name">
+                <label for="manager_name">manager_name</label>
+                <input id="manager_name" type="text" v-model="manager_name">
             </div>
             <div class="input-form">
-                <button style="margin: auto" @click="addBank">Add bank</button>
+                <button style="margin: auto" @click="addBank">add Bank</button>
             </div>
         </div>
     </div>
@@ -71,15 +72,15 @@
             addApi: Vue.resource('../add/bank'),
             deleteApi: Vue.resource('../delete/bank'),
             bankListApi: Vue.resource('../banks'),
-            bankList: [],
+            farmerList: [],
             account_year: "",
             number_card: "",
             manager_name: ""
         },
         methods:{
-            addFarmer: function () {
+            addBank: function () {
                 if (this.account_year === "" || this.number_card === "" || this.manager_name === ""){
-                    alert("Fill account_year, number_card and manager_name");
+                    alert("Fill account_year, number_card, manager_name");
                     return;
                 }
                 this.addApi
@@ -101,7 +102,7 @@
                         errorResponse => {
                             alert(SERVER_ERROR_MESSAGE);
                         },
-                );
+                    );
             },
             deleteBank: function (bank) {
                 this.deleteApi

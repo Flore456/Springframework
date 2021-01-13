@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Car</title>
+    <title>Cars</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
@@ -23,18 +23,19 @@
         <table>
             <thead>
             <tr>
-                <td class="id-column">car_id</td>
-                <td>car</td>
+                <td class="id-column">Car_id</td>
+                <td>Brand</td>
+                <td>Color</td>
                 <td class="delete-button">Delete</td>
             </tr>
-            </thead>farmers.html
+            </thead>
             <tbody>
-            <tr v-for="car in cars">
+            <tr v-for="animalType in animalTypes">
                 <td>{{car.car_id}}</td>
                 <td>{{car.brand}}</td>
                 <td>{{car.color}}</td>
                 <td class="delete-button">
-                    <img class="del-img" src="delete.png" width="16px" height="16px" @click="deleteCar(car)">
+                    <img class="del-img" src="delete.png" width="16px" height="16px" @click="deleteAnimalType(animalType)">
                 </td>
             </tr>
             </tbody>
@@ -52,7 +53,7 @@
                 <input id="color" type="text" v-model="color">
             </div>
             <div class="input-form">
-                <button style="margin: auto" @click="addCar">Add Car</button>
+                <button style="margin: auto" @click="addCar">add Car</button>
             </div>
         </div>
     </div>
@@ -71,12 +72,12 @@
         },
         methods:{
             addCar: function () {
-                if (this.brand === "" || this.color === ""){
-                    alert("Fill brand, color");
+                if (this.brand === "" || this.color === "" ){
+                    alert("Fill brand and color");
                     return;
                 }
                 this.addApi
-                    .get({name: this.name, color: this.color})
+                    .get({brand: this.brand, color: this.color})
                     .then(
                         response => {
                             if (response.status !== 200) {
@@ -86,7 +87,7 @@
                             let serverResponse = response.body;
                             if (serverResponse.success === true) {
                                 let car = serverResponse.message;
-                                this.cars.push(cars);
+                                this.cars.push(car);
                             }else{
                                 alert(serverResponse.message)
                             }
@@ -94,11 +95,11 @@
                         errorResponse => {
                             alert(SERVER_ERROR_MESSAGE);
                         },
-                );
+                    );
             },
             deleteCar: function (car) {
                 this.deleteApi
-                    .get({car_id: cars.car_id})
+                    .get({car_id: car.car_id})
                     .then(
                         response => {
                             if (response.status !== 200) {
@@ -109,7 +110,7 @@
                             if (serverResponse.success === false) {
                                 alert(serverResponse.message)
                             }else {
-                                let index = this.cars.indexOf(cars);
+                                let index = this.cars.indexOf(car);
                                 this.cars.splice(index, 1);
                             }
                         },

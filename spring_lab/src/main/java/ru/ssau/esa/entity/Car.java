@@ -47,8 +47,7 @@ public class Car {
     public void setColor(String color) {
         this.color = color;}
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "car", cascade = {CascadeType.ALL})
+   @OneToMany(mappedBy = "car", cascade = {CascadeType.ALL})
     public List<Person> getPersons() { return persons; }
 
     public void setPersons(List<Person> persons) { this.persons = persons; }

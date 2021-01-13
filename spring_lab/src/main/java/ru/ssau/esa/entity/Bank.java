@@ -57,7 +57,6 @@ public class Bank {
         this.manager_name = manager_name;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "bank", cascade = {CascadeType.ALL})
     public List<Person> getPersons() {
         return persons;
