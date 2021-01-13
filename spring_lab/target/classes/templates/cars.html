@@ -45,11 +45,11 @@
     <div class="creation">
         <div class="creation-form">
             <div class="input-form">
-                <label for="brand">brand</label>
+                <label for="brand">Brand</label>
                 <input id="brand" type="text" v-model="brand">
             </div>
             <div class="input-form">
-                <label for="color">color</label>
+                <label for="color">Color</label>
                 <input id="color" type="text" v-model="color">
             </div>
             <div class="input-form">
@@ -65,8 +65,8 @@
         data:{
             addApi: Vue.resource('../add/car'),
             deleteApi: Vue.resource('../delete/car'),
-            carsApi: Vue.resource('../cars'),
-            cars: [],
+            carListApi: Vue.resource('../cars'),
+            carList: [],
             brand: "",
             color: ""
         },
@@ -87,7 +87,7 @@
                             let serverResponse = response.body;
                             if (serverResponse.success === true) {
                                 let car = serverResponse.message;
-                                this.cars.push(car);
+                                this.carList.push(car);
                             }else{
                                 alert(serverResponse.message)
                             }
@@ -110,8 +110,8 @@
                             if (serverResponse.success === false) {
                                 alert(serverResponse.message)
                             }else {
-                                let index = this.cars.indexOf(car);
-                                this.cars.splice(index, 1);
+                                let index = this.carList.indexOf(car);
+                                this.carList.splice(index, 1);
                             }
                         },
                         errorResponse => {
@@ -122,7 +122,7 @@
 
         },
         beforeMount: function () {
-            this.carsApi
+            this.carListApi
                 .get()
                 .then(
                     response => {
@@ -131,7 +131,7 @@
                             alert(SERVER_ERROR_MESSAGE);
                             return;
                         }
-                        this.cars = response.body;
+                        this.carList = response.body;
                     },
                     errorResponse => {
                         alert(SERVER_ERROR_MESSAGE);
