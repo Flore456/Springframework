@@ -24,7 +24,7 @@ public class Person {
     }
 
     @Id
-    @Column(name = "id", nullable = false,length = 20)
+    @Column(name = "id", nullable = false,length = 60)
     public String getId() {
         return id;
     }

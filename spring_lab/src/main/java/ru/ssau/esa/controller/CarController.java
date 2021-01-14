@@ -10,6 +10,8 @@ import ru.ssau.esa.response.BadResponse;
 import ru.ssau.esa.response.GoodResponse;
 import ru.ssau.esa.response.ServerResponse;
 
+import java.util.UUID;
+
 @RestController
 public class CarController {
 
@@ -26,8 +28,9 @@ public class CarController {
     }
 
     @GetMapping(path = "/add/car", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    private ServerResponse add(String brand,String color){
+    private ServerResponse add(String car_id, String brand,String color){
         Car car = new Car();
+        car.setCar_id(UUID.randomUUID().toString());
         car.setBrand(brand);
         car.setColor(color);
         Car c = repository.save(car);

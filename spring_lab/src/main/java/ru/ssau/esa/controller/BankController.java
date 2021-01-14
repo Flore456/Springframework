@@ -10,6 +10,8 @@ import ru.ssau.esa.response.BadResponse;
 import ru.ssau.esa.response.GoodResponse;
 import ru.ssau.esa.response.ServerResponse;
 
+import java.util.UUID;
+
 @RestController
 public class BankController {
     private final BankRepository repository;
@@ -25,8 +27,9 @@ public class BankController {
     }
 
     @GetMapping(path = "/add/bank",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    private ServerResponse add(int account_year, int number_card, String manager_name){
+    private ServerResponse add(String account_num, int account_year, int number_card, String manager_name){
         Bank bank = new Bank();
+        bank.setAccount_num(UUID.randomUUID().toString());
         bank.setAccount_year(account_year);
         bank.setNumber_card(number_card);
         bank.setManager_name(manager_name);

@@ -14,6 +14,7 @@ import ru.ssau.esa.response.GoodResponse;
 import ru.ssau.esa.response.BadResponse;
 import ru.ssau.esa.response.ServerResponse;
 import java.sql.Date;
+import java.util.UUID;
 
 @RestController
 public class PersonController {
@@ -34,9 +35,10 @@ public class PersonController {
         return repository.findAll();
     }
 
-    @GetMapping(path = "/add/animal", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    private ServerResponse add(String name, String first_name, String city, Date birthday,String bankId,String carId){
+    @GetMapping(path = "/add/person", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    private ServerResponse add(String id, String name, String first_name, String city, Date birthday,String bankId,String carId){
         Person person = new Person();
+        person.setId(UUID.randomUUID().toString());
         person.setName(name);
         person.setFirst_name(first_name);
         person.setCity(city);

@@ -21,7 +21,7 @@ public class Bank {
     }
 
     @Id
-    @Column(name = "account_num", nullable = false, length = 20)
+    @Column(name = "account_num", nullable = false, length = 60)
     public String getAccount_num() {
         return account_num;
     }
@@ -57,6 +57,7 @@ public class Bank {
         this.manager_name = manager_name;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "bank", cascade = {CascadeType.ALL})
     public List<Person> getPersons() {
         return persons;
