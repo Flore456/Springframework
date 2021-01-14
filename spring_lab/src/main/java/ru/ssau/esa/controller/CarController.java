@@ -38,10 +38,10 @@ public class CarController {
     private  ServerResponse delete(String car_id){
         Car car = repository.findById(car_id).orElse(null);
         if (car == null){
-            return new BadResponse("Car not found");
+            return new BadResponse("No Car!");
         }
         if (!car.getPersons().isEmpty()){
-            return new BadResponse("Car has persons");
+            return new BadResponse("There is at least one car with an owner.");
         }
         repository.delete(car);
         return new GoodResponse();

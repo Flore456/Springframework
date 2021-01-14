@@ -9,6 +9,9 @@
 <body>
 <div class="header">
     <div class="header-link">
+        <a href="/xml/banks">XML</a>
+    </div>
+    <div class="header-link">
         <a href="banks.html" >Banks</a>
     </div>
     <div class="header-link">
@@ -30,7 +33,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="car in cars">
+            <tr v-for="car in carList">
                 <td>{{car.car_id}}</td>
                 <td>{{car.brand}}</td>
                 <td>{{car.color}}</td>

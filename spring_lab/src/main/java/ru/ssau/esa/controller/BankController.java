@@ -25,7 +25,7 @@ public class BankController {
     }
 
     @GetMapping(path = "/add/bank",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    private ServerResponse add(int account_year,int number_card,String manager_name){
+    private ServerResponse add(int account_year, int number_card, String manager_name){
         Bank bank = new Bank();
         bank.setAccount_year(account_year);
         bank.setNumber_card(number_card);
@@ -38,10 +38,10 @@ public class BankController {
     private ServerResponse delete(String account_num){
         Bank bank = repository.findById(account_num).orElse(null);
         if (bank == null){
-            return new BadResponse("Bank not found");
+            return new BadResponse("No Bank!");
         }
         if (!bank.getPersons().isEmpty()){
-            return new BadResponse("Bank has a person");
+            return new BadResponse("The Bank has customers!");
         }
         repository.delete(bank);
         return new GoodResponse();

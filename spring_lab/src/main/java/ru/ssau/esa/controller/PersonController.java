@@ -44,13 +44,13 @@ public class PersonController {
 
         Bank b = bankRepository.findById(bankId).orElse(null);
         if (b == null){
-            return new BadResponse("Bank not found");
+            return new BadResponse("No Bank!");
         }
         person.setBank(b);
 
         Car c = carRepository.findById(carId).orElse(null);
         if (c == null){
-            return new BadResponse("Car not found");
+            return new BadResponse("No Car!");
         }
 
         person.setCar(c);
@@ -65,7 +65,7 @@ public class PersonController {
     private ServerResponse delete(String id){
         Person person = repository.findById(id).orElse(null);
         if (person == null){
-            return new BadResponse("Person not found");
+            return new BadResponse("No Person!");
         }
         repository.delete(person);
         return new GoodResponse();
